@@ -1,5 +1,6 @@
 import random
 from logic.users_logic import *
+from models.users_model import *
 
 ## performing the actual functionality needed by the system:
 class UsersFacade:
@@ -13,7 +14,7 @@ class UsersFacade:
         index = random.randint(1, len(all_users))
         random_user = all_users[index]
         return random_user
-    
+
     ## close resources:
     def close(self):
         self.logic.close()

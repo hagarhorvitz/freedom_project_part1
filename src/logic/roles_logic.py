@@ -17,7 +17,7 @@ class RolesLogic:
         data_in_dictionary = self.dal.get_table(sql)
         data_dict_to_object = RolesModel.dictionary_to_one_object_role(data_in_dictionary)
         return data_dict_to_object
-    
+
     @staticmethod
     def display_roles(sql_result):
         for item in sql_result:
