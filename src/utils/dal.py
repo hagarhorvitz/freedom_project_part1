@@ -14,7 +14,7 @@ class DAL:
             return tables
 
     def get_scalar(self, sql, params = None):
-        with self.connection.cursor() as cursor:
+        with self.connection.cursor(dictionary=True) as cursor:
             cursor.execute(sql, params)
             table = cursor.fetchone()
             return table
