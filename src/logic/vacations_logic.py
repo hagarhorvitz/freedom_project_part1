@@ -2,6 +2,10 @@
 from utils.dal import *
 from models.vacations_model import *
 
+# במערכת קיימים שני תפקידים (Roles):
+# Admin - יכול לצפות בחופשות, להוסיף חופשה חדשה, לעדכן חופשה קיימת או למחוק חופשה.
+# User משתמש רגיל - יכול לצפות בחופשות הקיימות במערכת, לבצע Like או Unlike לחופשה.
+
 class VacationsLogic:
     def __init__(self):
         self.dal  = DAL()
@@ -36,6 +40,15 @@ class VacationsLogic:
         new_vacation = self.dal.insert(sql, (params))
         return f"New vacation was added successfully!\nNew vacation id: {new_vacation}"
     
+    
+
+
+
+
+
+
+
+
     # def count_all_vacations(self):
     #     sql = "select count(vacationId) from freedom.vacations"
     #     data = self.dal.get_scalar(sql)
