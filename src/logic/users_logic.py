@@ -28,7 +28,7 @@ class UsersLogic:
         for item in sql_result:
             print(item)
     
-    # add raise if roleid =1 or to set roleid as 2 in the params?
+    # add raise/if if roleid =1 or to set roleid as 2 in the params?
     # add raise if email already in the system
     def insert_new_user(self, firstname, lastname, email, password, roleId): 
         sql = "INSERT INTO freedom.users (firstname, lastname, email, password, roleId) VALUES (%s,%s,%s,%s,%s)"

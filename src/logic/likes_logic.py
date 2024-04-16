@@ -5,6 +5,9 @@ class LikesLogic:
     def __init__(self):
         self.dal  = DAL()
 
+    def close(self):
+        self.dal.close()
+
     ## sql and data (above) - for functions with params, dont forget to write params and %s in the sql
     def get_all_likes(self):
         sql = "select * from freedom.likes" 
@@ -23,7 +26,21 @@ class LikesLogic:
         for item in sql_result:
             print(item)
 
-    def close(self):
-        self.dal.close()
+    # add raise/if if userid/vacationid not existed
+    # add raise/if something wrong
+    def add_like(self, userId, vacationId): 
+        sql = "INSERT INTO freedom.likes (userId, vacationId) VALUES (%s,%s)"
+        params = (userId, vacationId)
+        new_like = self.dal.insert(sql, (params))
+        return f"Thank you for liking our vacation 👍"
+    
+    # add raise/if if userid/vacationid not existed
+    # add raise/if something wrong
+    def delete_like(self, userId, vacationId): 
+        sql = "DELETE FROM freedom.likes WHERE userId = %s and vacationId = %s"
+        params = (userId, vacationId)
+        delete_like_row = self.dal.delete(sql, (params))
+        return f"Deleted {delete_like_row} like successfully (unlike) from user ID {userId} for vacation ID {vacationId}"
+    
 
 

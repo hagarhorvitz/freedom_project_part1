@@ -33,6 +33,7 @@ class VacationsLogic:
             print(item)
 
     # add raise or whatever if User is trying - because only Admin can
+    # or just make sure only admins can see it, and users wont
     # add raise if something incorrect
     def insert_new_vacation(self, countryId, vacationInfo, startDate, endDate, price, photoFileName): 
         sql = "INSERT INTO freedom.vacations (countryId, vacationInfo, startDate, endDate, price, photoFileName) VALUES (%s,%s,%s,%s,%s,%s)"
@@ -40,12 +41,34 @@ class VacationsLogic:
         new_vacation = self.dal.insert(sql, (params))
         return f"New vacation was added successfully!\nNew vacation id: {new_vacation}"
     
-    
+    # raise/if if vacationId is or not existed
+    # only admin can
+    def update_existing_vacation(self, countryId, vacationInfo, startDate, endDate, price, photoFileName, vacationId):
+        sql = "UPDATE freedom.vacations SET countryId = %s, vacationInfo = %s, startDate = %s, endDate = %s, price = %s, photoFileName = %s WHERE vacationId = %s"
+        params = (countryId, vacationInfo, startDate, endDate, price, photoFileName, vacationId)
+        update_vacation_row = self.dal.update(sql, (params))
+        if update_vacation_row > 0:
+            return f"Vacation with ID {vacationId} updated successfully!"
+        else:
+            return f"Failed to update vacation with ID {vacationId}. Vacation ID not found or no changes made."
+
+    # raise/if if vacationId is or not existed
+    # only admin can
+    def delete_vacation(self, vacationId):
+        sql = "DELETE FROM freedom.vacations WHERE vacationId = %s"
+        params = (vacationId,)
+        deleted_vacation_row = self.dal.delete(sql, (params))
+        if deleted_vacation_row > 0:
+            return f"Vacation with ID {vacationId} deleted successfully!"
+        else:
+            return f"Failed to delete vacation with ID {vacationId}. Vacation ID not found."
 
 
 
 
 
+
+      
 
 
 
