@@ -34,7 +34,7 @@ class UsersLogic:
         sql = "INSERT INTO freedom.users (firstname, lastname, email, password, roleId) VALUES (%s,%s,%s,%s,%s)"
         params = (firstname, lastname, email, password, roleId)
         new_user = self.dal.insert(sql, (params))
-        return f"New user was added successfully\nNew user id: {new_user}"
+        return new_user
     
     # add raise if email incorrect/not in the system or password incorrect
     def get_user_by_email_and_password(self, email, password):
@@ -50,9 +50,13 @@ class UsersLogic:
         params = (email, )
         user_data = self.dal.get_scalar(sql, (params))
         if user_data == None:
-            return f"'{email}' doesn't exists in the system"
+            # print(f"'{email}' doesn't exists in the system")
+            return False
         else:
-            return f"'{email}' is in the system (:"
+            # print(f"'{email}' is already in the system 😎")
+            return True
+        
+
     
         
 

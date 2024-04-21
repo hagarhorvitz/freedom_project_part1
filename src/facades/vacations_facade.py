@@ -26,6 +26,16 @@ class VacationsFacade:
     def __exit__(self, exc_type, exc_value, exc_trace):
         self.close()
 
+    # make sure it works
+    def get_vacations_order_by_startDate(self, startDate):
+        if startDate != "startDate":
+            raise ValueError ("You must write the argument correctly")
+        else:
+            vacations_by_startDate = self.logic.get_all_vacations_by_order(startDate)
+            return f"All vacation ordered by start date:\n{vacations_by_startDate}"
+
+
+
 
 
 

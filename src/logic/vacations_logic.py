@@ -35,13 +35,14 @@ class VacationsLogic:
     # add raise or whatever if User is trying - because only Admin can
     # or just make sure only admins can see it, and users wont
     # add raise if something incorrect
+    # all above in facade
     def insert_new_vacation(self, countryId, vacationInfo, startDate, endDate, price, photoFileName): 
         sql = "INSERT INTO freedom.vacations (countryId, vacationInfo, startDate, endDate, price, photoFileName) VALUES (%s,%s,%s,%s,%s,%s)"
         params = (countryId, vacationInfo, startDate, endDate, price, photoFileName)
         new_vacation = self.dal.insert(sql, (params))
         return f"New vacation was added successfully!\nNew vacation id: {new_vacation}"
     
-    # raise/if if vacationId is or not existed
+    # raise/if if vacationId is or not existed - in facade
     # only admin can
     def update_existing_vacation(self, countryId, vacationInfo, startDate, endDate, price, photoFileName, vacationId):
         sql = "UPDATE freedom.vacations SET countryId = %s, vacationInfo = %s, startDate = %s, endDate = %s, price = %s, photoFileName = %s WHERE vacationId = %s"
@@ -52,7 +53,7 @@ class VacationsLogic:
         else:
             return f"Failed to update vacation with ID {vacationId}. Vacation ID not found or no changes made."
 
-    # raise/if if vacationId is or not existed
+    # raise/if if vacationId is or not existed - in facade
     # only admin can
     def delete_vacation(self, vacationId):
         sql = "DELETE FROM freedom.vacations WHERE vacationId = %s"
@@ -63,6 +64,19 @@ class VacationsLogic:
         else:
             return f"Failed to delete vacation with ID {vacationId}. Vacation ID not found."
 
+    # this function should be specific by startDate or to get any parameter?
+    # in the future, to do a list they can choose order by
+    def get_all_vacations_by_order(self, order_by):
+        sql = f"select * from freedom.vacations order by {order_by}" 
+        data_in_dictionary = self.dal.get_table(sql)
+        data_dict_to_object = VacationsModel.dictionaries_to_objects_vacations(data_in_dictionary)
+        return data_dict_to_object
+    # def get_all_vacations_by_order(self, order_by):
+    #     sql = f"select * from freedom.vacations order by %s" 
+    #     # params = (order_by, ) - didnt work with params....
+    #     data_in_dictionary = self.dal.get_table(sql)
+    #     data_dict_to_object = VacationsModel.dictionaries_to_objects_vacations(data_in_dictionary)
+    #     return data_dict_to_object
 
 
 

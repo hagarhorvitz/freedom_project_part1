@@ -77,6 +77,13 @@ from logic.vacations_logic import *
 # print(new_vacation)
 # vacation_data.close()
 
+# ## vacations_logic
+# vacations = VacationsLogic()
+# # by_startDate = vacations.get_all_vacations_by_order("startDate")
+# by_startDate = vacations.get_all_vacations_by_order()
+# vacations.display_vacations(by_startDate)
+# vacations.close()
+
 
 
 

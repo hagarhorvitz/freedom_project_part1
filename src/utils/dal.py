@@ -30,8 +30,8 @@ class DAL:
         with self.connection.cursor() as cursor:
             cursor.execute(sql, params)
             self.connection.commit()
-            row_count = cursor.rowcount
-            return row_count
+            row_count_affected = cursor.rowcount
+            return row_count_affected
 
     def delete(self, sql, params=None):
         with self.connection.cursor() as cursor:
