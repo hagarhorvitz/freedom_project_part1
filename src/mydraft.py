@@ -44,7 +44,7 @@ from logic.vacations_logic import *
 
 # ## users_logic
 # user = UsersLogic()
-# new_user = user.insert_new_user("Ori", "Bina", "ori@gmail.com", "ori555", 2)
+# new_user = user.insert_new_user(Or, "B", "ori@gmail.com", "ori555", "2")
 # print(new_user)
 # user.close()
 
@@ -88,11 +88,10 @@ from logic.vacations_logic import *
 
 # ## vacations_logic
 # vacations = VacationsLogic()
-# startDate = datetime.date(2024,5,22)
-# endDate = datetime.date(2024,7,2)
-# check_date = vacations.check_vacation(startDate, endDate)
-# print(check_date)
+# check_date = vacations.check_vacation("2024-05-22", "2024-07-20")
+# vacations.display_vacations(check_date)
 # vacations.close()
+
 
 
 
