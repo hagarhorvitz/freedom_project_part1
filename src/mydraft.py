@@ -1,3 +1,5 @@
+import datetime
+from datetime import date
 from utils.dal import *
 from models.users_model import *
 from logic.users_logic import *
@@ -84,6 +86,13 @@ from logic.vacations_logic import *
 # vacations.display_vacations(by_startDate)
 # vacations.close()
 
+# ## vacations_logic
+# vacations = VacationsLogic()
+# startDate = datetime.date(2024,5,22)
+# endDate = datetime.date(2024,7,2)
+# check_date = vacations.check_vacation(startDate, endDate)
+# print(check_date)
+# vacations.close()
 
 
 

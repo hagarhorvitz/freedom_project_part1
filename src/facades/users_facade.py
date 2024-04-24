@@ -41,12 +41,11 @@ class UsersFacade:
             raise ValueError ("Please enter valid email address")
         if len(password) < 4:
             raise ValueError ("Password length must me at least 4 characters")
-        if self.logic.check_if_user_exists(email) == False:
-            raise ValueError ("Email is not exist, try again")
-        # should we do function check password? #
+        if self.logic.get_user_by_email_and_password(email, password) == False:
+            raise ValueError ("Invalid email or password. Please try again")
         else:
             user = self.logic.get_user_by_email_and_password(email, password)
-            return f"User's account info:\n{user}"
+            return "Login successfully!"
 
 
     ## generate random (copied what Asaf did in his example...)

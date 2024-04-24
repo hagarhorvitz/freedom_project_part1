@@ -1,4 +1,5 @@
-# import random
+import datetime
+from datetime import date
 from utils.dal import *
 from models.vacations_model import *
 
@@ -39,19 +40,19 @@ class VacationsLogic:
     def insert_new_vacation(self, countryId, vacationInfo, startDate, endDate, price, photoFileName): 
         sql = "INSERT INTO freedom.vacations (countryId, vacationInfo, startDate, endDate, price, photoFileName) VALUES (%s,%s,%s,%s,%s,%s)"
         params = (countryId, vacationInfo, startDate, endDate, price, photoFileName)
-        new_vacation = self.dal.insert(sql, (params))
-        return f"New vacation was added successfully!\nNew vacation id: {new_vacation}"
+        new_vacation_id = self.dal.insert(sql, (params))
+        return new_vacation_id
     
     # raise/if if vacationId is or not existed - in facade
     # only admin can
-    def update_existing_vacation(self, countryId, vacationInfo, startDate, endDate, price, photoFileName, vacationId):
+    def update_existing_vacation(self, countryId, vacationInfo, startDate, endDate, price, vacationId, photoFileName):
         sql = "UPDATE freedom.vacations SET countryId = %s, vacationInfo = %s, startDate = %s, endDate = %s, price = %s, photoFileName = %s WHERE vacationId = %s"
         params = (countryId, vacationInfo, startDate, endDate, price, photoFileName, vacationId)
         update_vacation_row = self.dal.update(sql, (params))
         if update_vacation_row > 0:
-            return f"Vacation with ID {vacationId} updated successfully!"
+            return True
         else:
-            return f"Failed to update vacation with ID {vacationId}. Vacation ID not found or no changes made."
+            return False
 
     # raise/if if vacationId is or not existed - in facade
     # only admin can
@@ -60,9 +61,9 @@ class VacationsLogic:
         params = (vacationId,)
         deleted_vacation_row = self.dal.delete(sql, (params))
         if deleted_vacation_row > 0:
-            return f"Vacation with ID {vacationId} deleted successfully!"
+            return True
         else:
-            return f"Failed to delete vacation with ID {vacationId}. Vacation ID not found."
+            return False
 
     # this function should be specific by startDate or to get any parameter?
     # in the future, to do a list they can choose order by
@@ -78,6 +79,29 @@ class VacationsLogic:
     #     data_dict_to_object = VacationsModel.dictionaries_to_objects_vacations(data_in_dictionary)
     #     return data_dict_to_object
 
+    # def check_vacation(self, startDate, endDate): 
+    #     s = str(startDate)
+    #     e = str(endDate)
+    #     print(s + "-" + e)
+    #     today = date.today()
+    #     print(today)
+    #     start = datetime.datetime.strptime(s,"%Y-%m-%d").date()
+    #     print(start)
+    #     end = datetime.datetime.strptime(e,"%Y-%m-%d").date()
+    #     print(end)
+    #     if start < today:
+    #         raise ValueError ("Start date can't be in the past")
+    #     if end < today:
+    #         raise ValueError ("End date can't be in the past")
+    #     else:
+    #         startDate = datetime.date(start.year, start.month, start.day)
+    #         endDate = datetime.date(end.year, end.month, end.day)
+    #         print(f"{startDate} - {endDate}")
+    #         sql = "select * freedom.vacations WHERE startDate = %s or endDate = %s"
+    #         params = (startDate, endDate)
+    #         vacation = self.dal.get_table(sql, (params))
+    #         vac_dic = VacationsModel.dictionaries_to_objects_vacations(vacation)
+    #         return vac_dic
 
 
 

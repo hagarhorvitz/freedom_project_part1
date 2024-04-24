@@ -15,6 +15,7 @@ class LikesLogic:
         data_dict_to_object = LikesModel.dictionaries_to_objects_likes(data_in_dictionary)
         return data_dict_to_object
     
+    # change to scalar
     def get_one_like(self):
         sql = "select * from freedom.likes limit 1" #enter query for one result...
         data_in_dictionary = self.dal.get_table(sql)
@@ -32,7 +33,10 @@ class LikesLogic:
         sql = "INSERT INTO freedom.likes (userId, vacationId) VALUES (%s,%s)"
         params = (userId, vacationId)
         new_like = self.dal.insert(sql, (params))
-        return f"Thank you for liking our vacation 👍"
+        if new_like == None:
+            return True
+        else:
+            return False
     
     # add raise/if if userid/vacationid not existed
     # add raise/if something wrong
@@ -40,7 +44,10 @@ class LikesLogic:
         sql = "DELETE FROM freedom.likes WHERE userId = %s and vacationId = %s"
         params = (userId, vacationId)
         delete_like_row = self.dal.delete(sql, (params))
-        return f"Deleted {delete_like_row} like successfully (unlike) from user ID {userId} for vacation ID {vacationId}"
+        if delete_like_row > 0:
+            return True
+        else:
+            return False
     
 
 

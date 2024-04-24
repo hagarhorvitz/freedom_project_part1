@@ -41,8 +41,12 @@ class UsersLogic:
         sql = "select * from freedom.users where email = %s and password = %s"
         params = (email, password)
         user_data = self.dal.get_scalar(sql, (params))
-        user = UsersModel.dictionary_to_one_object_user(user_data)
-        return user
+        if user_data == None:
+            return False
+        else:
+            user = UsersModel.dictionary_to_one_object_user(user_data)
+            return user
+
     
     # add raise!
     def check_if_user_exists(self, email):
