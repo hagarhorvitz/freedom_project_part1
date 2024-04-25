@@ -18,6 +18,7 @@ class LikesFacade:
     def __exit__(self, exc_type, exc_value, exc_trace):
         self.close()
 
+    ### 1. add raise/if if userid/vacationid not existed? - then need to write function for it... ###
     def add_new_like(self, userId, vacationId):
         if not userId or not vacationId:
             raise ValueError ("Please provide all required information")
@@ -32,6 +33,7 @@ class LikesFacade:
             else:
                 return f"We didn't get your like for some reason, please try again.\nMake sure userId and vacationId are correct"
 
+    ### 1. add raise/if if userid/vacationid not existed? - then need to write function for it... ###
     def unlike_vacation(self, userId, vacationId):
         if not userId or not vacationId:
             raise ValueError ("Please provide all required information")

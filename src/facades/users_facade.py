@@ -51,11 +51,10 @@ class UsersFacade:
             else:
                 return f"Congratulations! Your registration was successful🥳\nNew user ID: {new_user_id}"
 
-
-    #################################################
     # make sure it works #
     ### 1. add raise if roleId = 1 (Admin) or to set roleId as 2 in the params/values? - for now, i did raise... ###
     ### 2. in the return successful, do a return just "login successfully" or also return user info? ###
+    ### 3. should we add raise if password wrong? and then we need function fot it... ###
     def login_exists_user(self, email, password):
         if not email or not password:
             raise ValueError ("Please provide all required information")

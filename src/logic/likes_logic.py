@@ -8,27 +8,23 @@ class LikesLogic:
     def close(self):
         self.dal.close()
 
-    ## sql and data (above) - for functions with params, dont forget to write params and %s in the sql
-    def get_all_likes(self):
-        sql = "select * from freedom.likes" 
-        data_in_dictionary = self.dal.get_table(sql)
-        data_dict_to_object = LikesModel.dictionaries_to_objects_likes(data_in_dictionary)
-        return data_dict_to_object
-    
-    # change to scalar
-    def get_one_like(self):
-        sql = "select * from freedom.likes limit 1" #enter query for one result...
-        data_in_dictionary = self.dal.get_table(sql)
-        data_dict_to_object = LikesModel.dictionary_to_one_object_like(data_in_dictionary)
-        return data_dict_to_object
-    
     @staticmethod
     def display_likes(sql_result):
         for item in sql_result:
             print(item)
 
-    # add raise/if if userid/vacationid not existed
-    # add raise/if something wrong
+    def get_all_likes(self):
+        sql = "select * from freedom.likes" 
+        likes_data_dictionary = self.dal.get_table(sql)
+        likes_data_dict_to_obj = LikesModel.dictionaries_to_objects_likes(likes_data_dictionary)
+        return likes_data_dict_to_obj
+    
+    def get_one_like(self):
+        sql = "select * from freedom.likes limit 1" 
+        like_data_dictionary = self.dal.get_scalar(sql)
+        like_data_dict_to_obj = LikesModel.dictionary_to_one_object_like(like_data_dictionary)
+        return like_data_dict_to_obj
+
     def add_like(self, userId, vacationId): 
         sql = "INSERT INTO freedom.likes (userId, vacationId) VALUES (%s,%s)"
         params = (userId, vacationId)
@@ -37,9 +33,7 @@ class LikesLogic:
             return True
         else:
             return False
-    
-    # add raise/if if userid/vacationid not existed
-    # add raise/if something wrong
+
     def delete_like(self, userId, vacationId): 
         sql = "DELETE FROM freedom.likes WHERE userId = %s and vacationId = %s"
         params = (userId, vacationId)

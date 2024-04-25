@@ -1,5 +1,3 @@
-import datetime
-from datetime import date
 from utils.dal import *
 from models.users_model import *
 from logic.users_logic import *
@@ -81,8 +79,8 @@ from logic.vacations_logic import *
 
 # ## vacations_logic
 # vacations = VacationsLogic()
-# # by_startDate = vacations.get_all_vacations_by_order("startDate")
-# by_startDate = vacations.get_all_vacations_by_order()
+# by_startDate = vacations.get_all_vacations_ordered("startDate")
+# # by_startDate = vacations.get_all_vacations_ordered("user")
 # vacations.display_vacations(by_startDate)
 # vacations.close()
 

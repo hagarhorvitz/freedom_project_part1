@@ -22,15 +22,15 @@ class VacationsFacade:
 
     # make sure it works
     #################################################
-    def get_vacations_order_by_startDate(self):
-        vacations_by_startDate = self.logic.get_all_vacations_by_order("startDate")
+    def get_all_vacations_by_startDate(self):
+        vacations_by_startDate = self.logic.get_all_vacations_ordered("startDate")
         vacations = self.logic.display_vacations(vacations_by_startDate)
         return f"All vacation ordered by start date:\n{vacations}"
     #################################################
 
     # make sure it works #
     ### 1. should we add if to check countryId existed, and then we need to write function... ###
-    ### 2. add raise if User is trying - because only Admin can ###
+    ### 2. add raise if User is trying? - because only Admin can ###
     ### 3. or just make sure only admins can see it, and users wont - and how ###
     def add_new_vacation(self, countryId, vacationInfo, startDate, endDate, price, photoFileName):
         if not countryId or not vacationInfo or not startDate or not endDate or not price or not photoFileName:

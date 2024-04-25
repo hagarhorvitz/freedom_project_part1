@@ -21,33 +21,35 @@ class VacationsLogic:
 
     def get_all_vacations(self):
         sql = "select * from freedom.vacations" 
-        data_in_dictionary = self.dal.get_table(sql)
-        data_dict_to_object = VacationsModel.dictionaries_to_objects_vacations(data_in_dictionary)
-        return data_dict_to_object
-    
-    #################################################
-    #fix and enter query for one result...
+        vacations_data_dictionary = self.dal.get_table(sql)
+        vacations_data_dict_to_obj = VacationsModel.dictionaries_to_objects_vacations(vacations_data_dictionary)
+        return vacations_data_dict_to_obj
+
     def get_one_vacation(self):
         sql = "select * from freedom.vacations limit 1"
-        data_in_dictionary = self.dal.get_scalar(sql)
-        data_dict_to_object = VacationsModel.dictionary_to_one_object_vacation(data_in_dictionary)
-        return data_dict_to_object
-    #################################################
+        vacation_data_dictionary = self.dal.get_scalar(sql)
+        vacation_data_dict_to_obj = VacationsModel.dictionary_to_one_object_vacation(vacation_data_dictionary)
+        return vacation_data_dict_to_obj
 
+    ### 1. this function should be specific by startDate or to get any parameter? ###
+    ### 2. in the future, to do a list they can choose order by ###
+    def get_all_vacations_ordered(self, order_by):
+        allowed_columns_as_parameter = ["vacationId", "countryId", "vacationInfo", "startDate", "endDate", "price", "photoFileName"]
+        if order_by not in allowed_columns_as_parameter:
+            raise ValueError("Invalid column name for ordering by")
+        else:
+            sql = f"select * from freedom.vacations order by {order_by}" 
+            vacations_data_dictionary = self.dal.get_table(sql)
+            vacations_data_dict_to_obj = VacationsModel.dictionaries_to_objects_vacations(vacations_data_dictionary)
+            return vacations_data_dict_to_obj
     #################################################
-    # this function should be specific by startDate or to get any parameter?
-    # in the future, to do a list they can choose order by
-    def get_all_vacations_by_order(self, order_by):
-        sql = f"select * from freedom.vacations order by {order_by}" 
-        data_in_dictionary = self.dal.get_table(sql)
-        data_dict_to_object = VacationsModel.dictionaries_to_objects_vacations(data_in_dictionary)
-        return data_dict_to_object
-    # def get_all_vacations_by_order(self, order_by):
-    #     sql = f"select * from freedom.vacations order by %s" 
-    #     # params = (order_by, ) - didnt work with params....
-    #     data_in_dictionary = self.dal.get_table(sql)
-    #     data_dict_to_object = VacationsModel.dictionaries_to_objects_vacations(data_in_dictionary)
-    #     return data_dict_to_object
+    # def get_all_vacations_ordered(self, order_by):
+    #     sql = "SELECT * FROM freedom.vacations ORDER BY %s"
+    #     params = (order_by, )
+    #     vacations_data_dictionary = self.dal.get_table(sql, (params))
+    #     vacations_data_dict_to_obj = VacationsModel.dictionaries_to_objects_vacations(vacations_data_dictionary)
+    #     return vacations_data_dict_to_obj
+    ### didn't work the way above, something between the sql... ###
     #################################################
 
     def insert_vacation(self, countryId, vacationInfo, startDate, endDate, price, photoFileName): 
@@ -96,15 +98,6 @@ class VacationsLogic:
 
 
 
-
-      
-
-
-
-    # def count_all_vacations(self):
-    #     sql = "select count(vacationId) from freedom.vacations"
-    #     data = self.dal.get_scalar(sql)
-    #     return data
 
 
 

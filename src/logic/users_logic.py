@@ -13,21 +13,17 @@ class UsersLogic:
         for item in sql_result:
             print(item)
 
-    ## sql and data (above) - for functions with params, dont forget to write params and %s in the sql
     def get_all_users(self):
         sql = "select * from freedom.users" 
-        data_in_dictionary = self.dal.get_table(sql)
-        data_dict_to_object = UsersModel.dictionaries_to_objects_users(data_in_dictionary)
-        return data_dict_to_object
-    
-    #################################################
-    #fix and enter query for one result...
+        users_data_dictionary = self.dal.get_table(sql)
+        users_data_dict_to_obj = UsersModel.dictionaries_to_objects_users(users_data_dictionary)
+        return users_data_dict_to_obj
+
     def get_one_user(self):
         sql = "select * from freedom.users limit 1"
-        data_in_dictionary = self.dal.get_scalar(sql)
-        data_dict_to_object = UsersModel.dictionary_to_one_object_user(data_in_dictionary)
-        return data_dict_to_object
-    #################################################
+        user_data_dictionary = self.dal.get_scalar(sql)
+        user_data_dict_to_obj = UsersModel.dictionary_to_one_object_user(user_data_dictionary)
+        return user_data_dict_to_obj
 
     def insert_new_user(self, firstname, lastname, email, password, roleId): 
         sql = "INSERT INTO freedom.users (firstname, lastname, email, password, roleId) VALUES (%s,%s,%s,%s,%s)"
@@ -47,8 +43,6 @@ class UsersLogic:
         else:
             return True
         
-        
-    # add raise if email incorrect/not in the system or password incorrect
     def get_user_by_email_and_password(self, email, password):
         sql = "select * from freedom.users where email = %s and password = %s"
         params = (email, password)
