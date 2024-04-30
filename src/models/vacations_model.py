@@ -9,10 +9,10 @@ class VacationsModel:
         self.photoFileName = photo_file_name
 
     def __str__(self):
-        return f"Vacation Id: # {self.vacationId} / Country Id: # {self.countryId}\nVacation description: {self.vacationInfo}\nStart & end dates: {self.startDate} - {self.endDate}\nTotal price: {self.price}\nPhoto file: {self.photoFileName}\n{"="*20}"
+        return f"Vacation Id: # {self.vacationId} / Country Id: # {self.countryId}\nVacation description: {self.vacationInfo}\nStart & end dates: {self.startDate} - {self.endDate}\nTotal price: {self.price}\nPhoto file: {self.photoFileName}"
     
     def display (self): #without photo file name
-        print(f"Vacation Id: # {self.vacationId} / Country Id: # {self.countryId}\nVacation description: {self.vacationInfo}\nStart & end dates: {self.startDate} - {self.endDate}\nTotal price: {self.price}\n{"="*20}")
+        print(f"Vacation Id: # {self.vacationId} / Country Id: # {self.countryId}\nVacation description: {self.vacationInfo}\nStart & end dates: {self.startDate} - {self.endDate}\nTotal price: {self.price}")
 
     @staticmethod
     def dictionary_to_one_object_vacation(dictionary):

@@ -1,20 +1,15 @@
 from logic.likes_logic import *
 
-## performing the actual functionality needed by the system:
 class LikesFacade:
-    ## constructor - creating a business logic object:
     def __init__(self):
         self.logic = LikesLogic()
 
-    ## close resources:
     def close(self):
         self.logic.close()
 
-    ## enabling "with" keyword usage:
     def __enter__(self):
         return self
     
-    ## disposing when existing "with" block:
     def __exit__(self, exc_type, exc_value, exc_trace):
         self.close()
 

@@ -11,7 +11,7 @@ class LikesLogic:
     @staticmethod
     def display_likes(sql_result):
         for item in sql_result:
-            print(item)
+            print(f"{item}\n{"="*15}")
 
     def get_all_likes(self):
         sql = "select * from freedom.likes" 
@@ -24,7 +24,8 @@ class LikesLogic:
         like_data_dictionary = self.dal.get_scalar(sql)
         like_data_dict_to_obj = LikesModel.dictionary_to_one_object_like(like_data_dictionary)
         return like_data_dict_to_obj
-
+    
+    ######################################################################
     def add_like(self, userId, vacationId): 
         sql = "INSERT INTO freedom.likes (userId, vacationId) VALUES (%s,%s)"
         params = (userId, vacationId)
@@ -33,6 +34,7 @@ class LikesLogic:
             return True
         else:
             return False
+    ######################################################################
 
     def delete_like(self, userId, vacationId): 
         sql = "DELETE FROM freedom.likes WHERE userId = %s and vacationId = %s"

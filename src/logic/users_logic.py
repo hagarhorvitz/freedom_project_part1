@@ -11,7 +11,7 @@ class UsersLogic:
     @staticmethod
     def display_users(sql_result):
         for item in sql_result:
-            print(item)
+            print(f"{item}\n{"="*25}")
 
     def get_all_users(self):
         sql = "select * from freedom.users" 

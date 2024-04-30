@@ -1,100 +1,103 @@
-from utils.dal import *
-from models.users_model import *
 from logic.users_logic import *
-from models.vacations_model import *
 from logic.vacations_logic import *
-# from facades.vacations_facade import *
+from logic.roles_logic import *
+from logic.likes_logic import *
+from logic.countries_logic import *
 
-# ## utils.dal
-# a = DAL()
-# sql = "select * from freedom.countries"
-# results = a.get_table(sql, )
-# print(results)
-# a.close()
-
-# ## users_model
-# data = DAL()
-# sql = "select * from freedom.users"
-# dict_results = data.get_table(sql)
-# obj_results = UsersModel.dictionaries_to_objects_users(dict_results)
-# for user in obj_results:
-#     print(user)
-# data.close()
-
-# ## users_logic
-# users = UsersLogic()
-# all_users = users.get_all_users()
-# users.display_users(all_users)
-# ## users.display_users(users.get_all_users()) - another option ##
-# users.close()
-
-# ## vacations_model
-# vacations = VacationsLogic()
-# count_vacation = vacations.count_all_vacations()
-# print(count_vacation)
-
-# ## vacations_logic
-## using the facade to perform the needed functionality of the system"
+# # using the facade to perform the needed functionality of the system"
 # with VacationsFacade() as facade:
 #     ## get a random
 #     random_vacation = facade.get_random_vacation()
 #     print(random_vacation)
 
-# ## users_logic
+## vacations_logic
+# vacation = VacationsLogic()
+# all_vacations = vacation.get_all_vacations()
+# vacation.display_vacations(all_vacations)
+# vacation.close()
+
+# vacations_ordered = VacationsLogic()
+# by_startDate = vacations_ordered.get_all_vacations_ordered("startDate")
+# vacations_ordered.display_vacations(by_startDate)
+# # by_order = vacations_ordered.get_all_vacations_ordered("user")
+# # vacations_ordered.display_vacations(by_order)
+# vacations_ordered.close()
+
+# vacation = VacationsLogic()
+# new_vacation = vacation.insert_new_vacation(5, "Want to have a perfect getaway from school and have the time of your life? We have special deals for winter break in sunny, exotic Cancun, Mexico!! Sun, amazing beaches, alcohol, party day and night!", "2024-12-19", "2024-12-29", 16900, "photo_of_beach_party")
+# print(new_vacation)
+# vacation.close()
+
+
+
+## users_logic
+# users = UsersLogic()
+# all_users = users.get_all_users()
+# users.display_users(all_users)
+# users.close()
+
 # user = UsersLogic()
-# new_user = user.insert_new_user(Or, "B", "ori@gmail.com", "ori555", "2")
+# new_user = user.insert_new_user("Shraga", "Horvitz", "shragi@gmail.com", "mylove111", 2)
 # print(new_user)
 # user.close()
 
-# ## users_logic
-# user1 = UsersLogic()
-# one_user = user1.get_one_user()
-# one_user.display() #option 1
-# print(one_user) #option 2
-# user1.close()
+# user = UsersLogic()
+# check_email = user.check_if_email_exists("gali@gmail.com")
+# print(check_email)
+# user.close()
 
-# ## users_logic
-# user_logic = UsersLogic()
-# user = user_logic.get_user_by_email_and_password("gali@gmail.com", "mona123")
-# print(user)
-# user_logic.close()
-
-# ## users_logic
-# user_logic = UsersLogic()
-# user = user_logic.check_if_user_exists("ga@gmail.com")
-# print(user)
-# user_logic.close()
-
-# ## vacations_logic
-# vacation_logic = VacationsLogic()
-# all_vacations = vacation_logic.get_all_vacations()
-# vacation_logic.display_vacations(all_vacations)
-# vacation_logic.close()
-
-# ## vacations_logic
-# vacation_data = VacationsLogic()
-# new_vacation = vacation_data.insert_new_vacation(5, "Want to have a perfect getaway from school and have the time of your life? We have special deals for winter break in sunny, exotic Cancun, Mexico!! Sun, amazing beaches, alcohol, party day and night!", "2024-12-19", "2024-12-29", 16900, "photo_of_beach_party")
-# print(new_vacation)
-# vacation_data.close()
-
-# ## vacations_logic
-# vacations = VacationsLogic()
-# by_startDate = vacations.get_all_vacations_ordered("startDate")
-# # by_startDate = vacations.get_all_vacations_ordered("user")
-# vacations.display_vacations(by_startDate)
-# vacations.close()
-
-# ## vacations_logic
-# vacations = VacationsLogic()
-# check_date = vacations.check_vacation("2024-05-22", "2024-07-20")
-# vacations.display_vacations(check_date)
-# vacations.close()
+# user = UsersLogic()
+# user_by_email_and_password = user.get_user_by_email_and_password("gali@gmail.com", "mona123")
+# print(user_by_email_and_password)
+# user.close()
 
 
 
+## roles_logic
+# roles = RolesLogic()
+# all_roles = roles.get_all_roles()
+# roles.display_roles(all_roles)
+# roles.close()
+
+# role = RolesLogic()
+# by_id = role.get_one_role_by_id(2)
+# print(by_id)
+# role.close()
+
+# role = RolesLogic()
+# by_name = role.get_one_role_by_name("Admin")
+# print(by_name)
+# role.close()
 
 
 
+## likes_logic
+# likes = LikesLogic()
+# all_likes = likes.get_all_likes()
+# likes.display_likes(all_likes)
+# likes.close()
+
+# like = LikesLogic()
+# add_like = like.add_like(1, 6)
+# like.close()
+
+
+
+## countries_logic
+# countries = CountriesLogic()
+# all_countries = countries.get_all_countries()
+# countries.display_countries(all_countries)
+# countries.close()
+
+# country = CountriesLogic()
+# by_id = country.get_one_country_by_id(5)
+# print(by_id)
+# country.close()
+
+# country = CountriesLogic()
+# by_name = country.get_one_country_by_name("Panama")
+# print(by_name)
+# country.close()
 
 
 

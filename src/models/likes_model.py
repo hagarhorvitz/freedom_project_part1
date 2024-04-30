@@ -4,7 +4,7 @@ class LikesModel:
         self.vacationId = vacation_id
 
     def __str__(self):
-        return f"Like info:\nUser Id: {self.userId} - Vacation Id: {self.vacationId}\n{"="*15}"
+        return f"Like info:\nUser Id: {self.userId} - Vacation Id: {self.vacationId}"
     
     @staticmethod
     def dictionary_to_one_object_like(dictionary):

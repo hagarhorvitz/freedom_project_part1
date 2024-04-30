@@ -2,21 +2,16 @@ import datetime
 from datetime import date
 from logic.vacations_logic import *
 
-## performing the actual functionality needed by the system:
 class VacationsFacade:
-    ## constructor - creating a business logic object:
     def __init__(self):
         self.logic = VacationsLogic()
 
-    ## close resources:
     def close(self):
         self.logic.close()
 
-    ## enabling "with" keyword usage:
     def __enter__(self):
         return self
     
-    ## disposing when existing "with" block:
     def __exit__(self, exc_type, exc_value, exc_trace):
         self.close()
 
@@ -61,7 +56,7 @@ class VacationsFacade:
         if end < today:
             raise ValueError ("End date must be tomorrow and up (future date only)")
         else:
-            new_vacation_id = self.logic.insert_vacation(countryId, vacationInfo, startDate, endDate, price, photoFileName)
+            new_vacation_id = self.logic.insert_new_vacation(countryId, vacationInfo, startDate, endDate, price, photoFileName)
             if new_vacation_id == False:
                 raise ValueError ("Unfortunately something went wrong...Please try again and make sure all provided information is valid")
             else:
@@ -119,12 +114,6 @@ class VacationsFacade:
             elif delete_vacation == False:
                 raise ValueError(f"Unfortunately failed to delete vacation ID {vacationId} (and likes) - ID was not found and/or no changes was made")
         
-    # ## generate random (copied what Asaf did in his example...)
-    # def get_random_vacation(self):
-    #     all_vacations = self.logic.get_all_vacations()
-    #     index = random.randint(1, len(all_vacations))
-    #     random_vacation = all_vacations[index]
-    #     return random_vacation
 
 
 

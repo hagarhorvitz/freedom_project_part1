@@ -4,7 +4,7 @@ class CountriesModel:
         self.countryName = country_name
 
     def __str__(self):
-        return f"Country info:\nId: {self.countryId} - Name: {self.countryName}\n{"="*12}"
+        return f"Country Id: {self.countryId} - Country: {self.countryName}"
     
     @staticmethod
     def dictionary_to_one_object_country(dictionary):

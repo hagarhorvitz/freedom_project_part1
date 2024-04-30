@@ -4,7 +4,7 @@ class RolesModel:
         self.roleName = role_name
 
     def __str__(self):
-        return f"Role info:\nId: {self.roleId} - Name: {self.roleName}\n{"="*12}"
+        return f"Role info:\nId: {self.roleId} - Name: {self.roleName}"
     
     @staticmethod
     def dictionary_to_one_object_role(dictionary):

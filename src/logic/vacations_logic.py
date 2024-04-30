@@ -1,15 +1,11 @@
-import datetime
-from datetime import date
+# import datetime
+# from datetime import date
 from utils.dal import *
 from models.vacations_model import *
 
-# במערכת קיימים שני תפקידים (Roles):
-# Admin - יכול לצפות בחופשות, להוסיף חופשה חדשה, לעדכן חופשה קיימת או למחוק חופשה.
-# User משתמש רגיל - יכול לצפות בחופשות הקיימות במערכת, לבצע Like או Unlike לחופשה.
-
 class VacationsLogic:
     def __init__(self):
-        self.dal  = DAL()
+        self.dal = DAL()
     
     def close(self):
         self.dal.close()
@@ -17,7 +13,7 @@ class VacationsLogic:
     @staticmethod
     def display_vacations(sql_result):
         for item in sql_result:
-            print(item)
+            print(f"{item}\n{"="*40}")
 
     def get_all_vacations(self):
         sql = "select * from freedom.vacations" 
@@ -31,12 +27,11 @@ class VacationsLogic:
         vacation_data_dict_to_obj = VacationsModel.dictionary_to_one_object_vacation(vacation_data_dictionary)
         return vacation_data_dict_to_obj
 
-    ### 1. this function should be specific by startDate or to get any parameter? ###
-    ### 2. in the future, to do a list they can choose order by ###
+    ### this function should be specific by startDate or to get any parameter? ###
     def get_all_vacations_ordered(self, order_by):
         allowed_columns_as_parameter = ["vacationId", "countryId", "vacationInfo", "startDate", "endDate", "price", "photoFileName"]
         if order_by not in allowed_columns_as_parameter:
-            raise ValueError("Invalid column name for ordering by")
+            raise ValueError("Invalid column name to order by")
         else:
             sql = f"select * from freedom.vacations order by {order_by}" 
             vacations_data_dictionary = self.dal.get_table(sql)
@@ -52,7 +47,7 @@ class VacationsLogic:
     ### didn't work the way above, something between the sql... ###
     #################################################
 
-    def insert_vacation(self, countryId, vacationInfo, startDate, endDate, price, photoFileName): 
+    def insert_new_vacation(self, countryId, vacationInfo, startDate, endDate, price, photoFileName): 
         sql = "INSERT INTO freedom.vacations (countryId, vacationInfo, startDate, endDate, price, photoFileName) VALUES (%s,%s,%s,%s,%s,%s)"
         params = (countryId, vacationInfo, startDate, endDate, price, photoFileName)
         new_vacation_id = self.dal.insert(sql, (params))
@@ -79,7 +74,7 @@ class VacationsLogic:
         else:
             return False
 
-
+### DELETE THIS! ###
 #################################################
     # def check_vacation(self, startDate, endDate): 
     #     today = date.today()

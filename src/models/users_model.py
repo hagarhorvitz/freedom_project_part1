@@ -8,10 +8,10 @@ class UsersModel:
         self.roleId = role_id
 
     def __str__(self):
-        return f"User Id: {self.userId}\nFull name: {self.firstname} {self.lastname}\nEmail: {self.email}\nPassword: {self.password}\nRole Id: ({self.roleId})\n{"="*18}"
+        return f"User Id: {self.userId}\nFull name: {self.firstname} {self.lastname}\nEmail: {self.email}\nPassword: {self.password}\nRole Id: ({self.roleId})"
 
     def display(self): # without password and roleId
-        print(f"User Id: {self.userId}\nFull name: {self.firstname} {self.lastname}\nEmail: {self.email}\n{"="*18}")
+        print(f"User Id: {self.userId}\nFull name: {self.firstname} {self.lastname}\nEmail: {self.email}")
 
     @staticmethod
     def dictionary_to_one_object_user(dictionary):
