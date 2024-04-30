@@ -7,8 +7,4 @@ class RolesFacade:
     def close(self):
         self.logic.close()
 
-    def __enter__(self):
-        return self
-    
-    def __exit__(self, exc_type, exc_value, exc_trace):
-        self.close()
+

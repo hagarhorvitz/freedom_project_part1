@@ -78,8 +78,14 @@ from logic.countries_logic import *
 # likes.close()
 
 # like = LikesLogic()
-# add_like = like.add_like(1, 6)
+# add_like = like.add_like(3, 7)
+# print(add_like)
 # like.close()
+
+# delete = LikesLogic() 
+# unlike = delete.delete_like(3,7)
+# print(unlike)
+# delete.close()
 
 
 

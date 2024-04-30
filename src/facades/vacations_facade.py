@@ -9,24 +9,12 @@ class VacationsFacade:
     def close(self):
         self.logic.close()
 
-    def __enter__(self):
-        return self
-    
-    def __exit__(self, exc_type, exc_value, exc_trace):
-        self.close()
-
-    # make sure it works
-    #################################################
     def get_all_vacations_by_startDate(self):
         vacations_by_startDate = self.logic.get_all_vacations_ordered("startDate")
         vacations = self.logic.display_vacations(vacations_by_startDate)
         return f"All vacation ordered by start date:\n{vacations}"
-    #################################################
 
-    # make sure it works #
     ### 1. should we add if to check countryId existed, and then we need to write function... ###
-    ### 2. add raise if User is trying? - because only Admin can ###
-    ### 3. or just make sure only admins can see it, and users wont - and how ###
     def add_new_vacation(self, countryId, vacationInfo, startDate, endDate, price, photoFileName):
         if not countryId or not vacationInfo or not startDate or not endDate or not price or not photoFileName:
             raise ValueError ("Please provide all required information")
@@ -35,7 +23,7 @@ class VacationsFacade:
         if not isinstance(price, int):
             raise TypeError ("Price must entered as number (integer)")
         if not isinstance(vacationInfo, str):
-            raise TypeError ("Vacation Information must entered as text letters (string)")
+            raise TypeError ("Vacation information must entered as text letters (string)")
         if not isinstance(photoFileName, str):
             raise TypeError ("Photo file's name must entered as text letters (string)")
         if not isinstance(startDate, str):
@@ -55,18 +43,14 @@ class VacationsFacade:
             raise ValueError ("Start date must be tomorrow and up (future date only)")
         if end < today:
             raise ValueError ("End date must be tomorrow and up (future date only)")
-        else:
-            new_vacation_id = self.logic.insert_new_vacation(countryId, vacationInfo, startDate, endDate, price, photoFileName)
-            if new_vacation_id == False:
-                raise ValueError ("Unfortunately something went wrong...Please try again and make sure all provided information is valid")
-            else:
-                return f"New vacation just added successfully!\nNew vacation ID: {new_vacation_id}"
+        new_vacation_id = self.logic.insert_new_vacation(countryId, vacationInfo, startDate, endDate, price, photoFileName)
+        if new_vacation_id == True:
+            return f"New vacation just added successfully!\nNew vacation ID: {new_vacation_id}"
+        elif new_vacation_id == False:
+            raise ValueError ("Unfortunately something went wrong...Please try again and make sure all provided information is valid")
 
-    # make sure it works
     ### 1. should we add if vacationId not exist, and then we need to write function... ###
     ### 2. should we add if countryId not exist, and then we need to write function... ###
-    ### 3. add raise if User is trying - because only Admin can ###
-    ### 4. or just make sure only admins can see it, and users wont - and how ###
     def update_exist_vacation(self, countryId, vacationInfo, startDate, endDate, price, vacationId):
         if not countryId or not vacationInfo or not startDate or not endDate or not price or not vacationId:
             raise ValueError ("Please provide all required information")
@@ -90,29 +74,23 @@ class VacationsFacade:
         end = datetime.datetime.strptime(endDate,"%Y-%m-%d").date()
         if end <= start:
             raise ValueError ("End date can't be before start date")
-        else:
-            update_vacation = self.logic.update_vacation(countryId, vacationInfo, startDate, endDate, price, vacationId)
-            if update_vacation == True:
-                return f"Vacation ID {vacationId} updated successfully!"
-            elif update_vacation == False:
-                raise ValueError(f"Unfortunately failed to update vacation ID {vacationId} - ID was not found and/or no changes was made")
+        update_vacation = self.logic.update_vacation(countryId, vacationInfo, startDate, endDate, price, vacationId)
+        if update_vacation == True:
+            return f"Vacation ID {vacationId} updated successfully!"
+        elif update_vacation == False:
+            raise ValueError(f"Unfortunately failed to update vacation ID {vacationId} - ID was not found and/or no changes was made")
 
-
-    ## make sure like was deleted and the function works ##
     ### 1. should we add if vacationId not exist, and then we need to write function... ###
-    ### 2. add raise if User is trying - because only Admin can ###
-    ### 3. or just make sure only admins can see it, and users wont - and how ###
     def delete_vacation(self, vacationId):
         if not vacationId:
             raise ValueError ("Please provide all required information")
         if not isinstance(vacationId, int):
-            raise ValueError ("Vacation ID must entered as number (integer)")
-        else:
-            delete_vacation = self.logic.delete_vacation(vacationId)
-            if delete_vacation == True:
-                return f"Vacation ID {vacationId} deleted successfully included all likes!"
-            elif delete_vacation == False:
-                raise ValueError(f"Unfortunately failed to delete vacation ID {vacationId} (and likes) - ID was not found and/or no changes was made")
+            raise TypeError ("Vacation ID must entered as number (integer)")
+        delete_vacation = self.logic.delete_vacation(vacationId)
+        if delete_vacation == True:
+            return f"Vacation ID {vacationId} deleted successfully included all likes!"
+        elif delete_vacation == False:
+            raise ValueError(f"Unfortunately failed to delete vacation ID {vacationId} (and likes) - ID was not found and/or no changes was made")
         
 
 

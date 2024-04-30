@@ -1,5 +1,3 @@
-# import datetime
-# from datetime import date
 from utils.dal import *
 from models.vacations_model import *
 
@@ -27,7 +25,6 @@ class VacationsLogic:
         vacation_data_dict_to_obj = VacationsModel.dictionary_to_one_object_vacation(vacation_data_dictionary)
         return vacation_data_dict_to_obj
 
-    ### this function should be specific by startDate or to get any parameter? ###
     def get_all_vacations_ordered(self, order_by):
         allowed_columns_as_parameter = ["vacationId", "countryId", "vacationInfo", "startDate", "endDate", "price", "photoFileName"]
         if order_by not in allowed_columns_as_parameter:
@@ -74,22 +71,6 @@ class VacationsLogic:
         else:
             return False
 
-### DELETE THIS! ###
-#################################################
-    # def check_vacation(self, startDate, endDate): 
-    #     today = date.today()
-    #     start = datetime.datetime.strptime(startDate,"%Y-%m-%d").date()
-    #     end = datetime.datetime.strptime(endDate,"%Y-%m-%d").date()
-    #     if start < today:
-    #         raise ValueError ("Start date can't be in the past")
-    #     if end < today:
-    #         raise ValueError ("End date can't be in the past")
-    #     else:
-    #         sql = "select * from freedom.vacations WHERE startDate = %s or endDate = %s"
-    #         params = (startDate, endDate)
-    #         vacation_dictionary = self.dal.get_table(sql, (params))
-    #         vacations_dict_to_obj = VacationsModel.dictionaries_to_objects_vacations(vacation_dictionary)
-    #         return vacations_dict_to_obj
 
 
 

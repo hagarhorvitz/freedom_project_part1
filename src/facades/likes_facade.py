@@ -7,12 +7,6 @@ class LikesFacade:
     def close(self):
         self.logic.close()
 
-    def __enter__(self):
-        return self
-    
-    def __exit__(self, exc_type, exc_value, exc_trace):
-        self.close()
-
     ### 1. add raise/if if userid/vacationid not existed? - then need to write function for it... ###
     def add_new_like(self, userId, vacationId):
         if not userId or not vacationId:
@@ -21,12 +15,11 @@ class LikesFacade:
             raise ValueError ("User ID must entered as number (integer)")
         if not isinstance(vacationId, int):
             raise ValueError ("Vacation ID must entered as number (integer)")
-        else:
-            new_like = self.logic.add_like(userId, vacationId)
-            if new_like == True:
-                return f"Thank you for liking the vacation 👍"
-            else:
-                return f"We didn't get your like for some reason, please try again.\nMake sure userId and vacationId are correct"
+        new_like = self.logic.add_like(userId, vacationId)
+        if new_like == True:
+            return f"Thank you for liking the vacation 👍"
+        elif new_like == False: 
+            raise ValueError("We didn't get your like for some reason, please try again.\nMake sure userId and vacationId are correct")
 
     ### 1. add raise/if if userid/vacationid not existed? - then need to write function for it... ###
     def unlike_vacation(self, userId, vacationId):
@@ -36,11 +29,12 @@ class LikesFacade:
             raise ValueError ("User ID must entered as number (integer)")
         if not isinstance(vacationId, int):
             raise ValueError ("Vacation ID must entered as number (integer)")
-        else:
-            unlike = self.logic.delete_like(userId, vacationId)
-            if unlike == True:
-                return f"Unlike successfully from user ID {userId} for vacation ID {vacationId}"
-            else:
-                return f"Couldn't do unlike for some reason, please try again.\nMake sure userId and vacationId are correct"
+        unlike = self.logic.delete_like(userId, vacationId)
+        if unlike == True:
+            return f"Unlike successfully from user ID {userId} for vacation ID {vacationId}"
+        elif unlike == False:
+            raise ValueError("Sorry, something is wrong...couldn't unlike for some reason, please try again.\nMake sure userId and vacationId are correct")
+
+
 
 

@@ -1,5 +1,4 @@
 from logic.users_logic import *
-# from models.users_model import *
 
 class UsersFacade:
     def __init__(self):
@@ -8,14 +7,6 @@ class UsersFacade:
     def close(self):
         self.logic.close()
 
-    def __enter__(self):
-        return self
-    
-    def __exit__(self, exc_type, exc_value, exc_trace):
-        self.close()
-
-    # make sure it works #
-    ### 1. add raise if roleId = 1 (Admin) or to set roleId as 2 in the params/values? - for now, i did raise... ###
     def register_new_user(self, firstname, lastname, email, password, roleId):
         if not firstname or not lastname or not email or not password or not roleId:
             raise ValueError ("Please provide all required information")
@@ -35,20 +26,14 @@ class UsersFacade:
             raise ValueError ("Password's length must me at least 4 characters")
         if roleId == 1:
             raise ValueError("New user's role ID can't be 1 = Admin (Admin must entered manually only).\nPlease enter valid role ID")
-        check_email = self.logic.check_if_email_exists(email)
-        if check_email == True:
+        if self.logic.check_if_email_exists(email) == True:
             raise ValueError ("Can't register this email address - email is already exists in the system")
+        new_user_id = self.logic.insert_new_user(firstname, lastname, email, password, roleId)
+        if new_user_id == False:
+            raise ValueError("Unfortunately something went wrong...Please try again and make sure all provided information is valid")
         else:
-            new_user_id = self.logic.insert_new_user(firstname, lastname, email, password, roleId)
-            if new_user_id == False:
-                raise ValueError("Unfortunately something went wrong...Please try again and make sure all provided information is valid")
-            else:
-                return f"Congratulations! Your registration was successful🥳\nNew user ID: {new_user_id}"
+            return f"Congratulations! Your registration was successful🥳\nNew user ID: {new_user_id}"
 
-    # make sure it works #
-    ### 1. add raise if roleId = 1 (Admin) or to set roleId as 2 in the params/values? - for now, i did raise... ###
-    ### 2. in the return successful, do a return just "login successfully" or also return user info? ###
-    ### 3. should we add raise if password wrong? and then we need function fot it... ###
     def login_exists_user(self, email, password):
         if not email or not password:
             raise ValueError ("Please provide all required information")
