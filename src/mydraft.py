@@ -3,6 +3,7 @@ from logic.vacations_logic import *
 from logic.roles_logic import *
 from logic.likes_logic import *
 from logic.countries_logic import *
+from tests.test import *
 
 # # using the facade to perform the needed functionality of the system"
 # with VacationsFacade() as facade:
@@ -49,6 +50,7 @@ from logic.countries_logic import *
 # user = UsersLogic()
 # user_by_email_and_password = user.get_user_by_email_and_password("gali@gmail.com", "mona123")
 # print(user_by_email_and_password)
+# print(f"user role id3: {user_by_email_and_password.userId}")
 # user.close()
 
 
@@ -106,4 +108,8 @@ from logic.countries_logic import *
 # country.close()
 
 
+# ## test
+# test = Test()
+# test.add_new_vacation_test()
+# test.close()
 

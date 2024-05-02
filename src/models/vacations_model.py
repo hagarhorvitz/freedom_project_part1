@@ -9,11 +9,60 @@ class VacationsModel:
         self.photoFileName = photo_file_name
 
     def __str__(self):
-        return f"Vacation Id: # {self.vacationId} / Country Id: # {self.countryId}\nVacation description: {self.vacationInfo}\nStart & end dates: {self.startDate} - {self.endDate}\nTotal price: {self.price}\nPhoto file: {self.photoFileName}"
+        return f"Vacation Id: # {self.__vacationId} / Country Id: # {self.__countryId}\nVacation description: {self.__vacationInfo}\nStart & end dates: {self.__startDate} - {self.__endDate}\nTotal price: {self.__price}\nPhoto file: {self.__photoFileName}"
     
     def display (self): #without photo file name
-        print(f"Vacation Id: # {self.vacationId} / Country Id: # {self.countryId}\nVacation description: {self.vacationInfo}\nStart & end dates: {self.startDate} - {self.endDate}\nTotal price: {self.price}")
+        print(f"Vacation Id: # {self.__vacationId} / Country Id: # {self.__countryId}\nVacation description: {self.__vacationInfo}\nStart & end dates: {self.__startDate} - {self.__endDate}\nTotal price: {self.__price}")
 
+    @property  
+    def vacationId(self):
+        return self.__vacationId
+    @vacationId.setter
+    def vacationId(self, value):
+        self.__vacationId = value
+    
+    @property
+    def countryId(self):
+        return self.__countryId  
+    @countryId.setter
+    def countryId(self, value):
+        self.__countryId = value
+
+    @property
+    def vacationInfo(self):
+        return self.__vacationInfo   
+    @vacationInfo.setter
+    def vacationInfo(self, value):
+        self.__vacationInfo = value
+
+    @property
+    def startDate(self):
+        return self.__startDate   
+    @startDate.setter
+    def startDate(self, value):
+        self.__startDate = value
+
+    @property
+    def endDate(self):
+        return self.__endDate    
+    @endDate.setter
+    def endDate(self, value):
+        self.__endDate = value
+
+    @property
+    def price(self):
+        return self.__price
+    @price.setter
+    def price(self, value):
+        self.__price = value
+
+    @property
+    def photoFileName(self):
+        return self.__photoFileName  
+    @photoFileName.setter
+    def photoFileName(self, value):
+        self.__photoFileName = value
+    
     @staticmethod
     def dictionary_to_one_object_vacation(dictionary):
         vacationId = dictionary["vacationId"]

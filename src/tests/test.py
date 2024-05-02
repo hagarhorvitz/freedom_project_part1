@@ -20,7 +20,10 @@ class Test:
     
     def add_new_user_test(self):
         try:
-            new_user = self.users_facade.register_new_user("Shraga", "Horvitz", "shragi@gmail.com", "mylove111", 2)
+            args = ("Yosef", "Gerama", "y@gmail.com", "yosef5151", 5)
+            if len(args) != 5:
+                raise ValueError("Please provide all required information")
+            new_user = self.users_facade.register_new_user(*args)
             print(new_user)
         except ValueError as err:
             print("Value error:", err)
@@ -33,8 +36,12 @@ class Test:
 
     def login_user_test(self):
         try:
-            user = self.users_facade.login_exists_user("gali@gmail.com", "mona123")
-            print(user)
+            args = ("gali@gmail.com", "mona123")
+            if len(args) != 2:
+                raise ValueError("Please provide all required information")
+            user_roleId, message = self.users_facade.login_exists_user(*args)
+            print(message)
+            return user_roleId
         except ValueError as err:
             print("Value error:", err)
         except TypeError as err:
@@ -46,55 +53,86 @@ class Test:
 
     def get_all_vacations_by_startDate_test(self):
         try:
-            all_vacations = self.vacations_facade.get_all_vacations_by_startDate()
+            args = ("startDate", )
+            if len(args) != 1:
+                raise ValueError("Please provide all required information")
+            all_vacations = self.vacations_facade.all_vacations_ordered(*args)
             print(all_vacations)
+        except ValueError as err:
+            print("Value error:", err)
+        except TypeError as err:
+            print("Type error:", err)
         except Exception as err:
             print("General error:", err)
         finally:
             self.vacations_facade.close()
         
     def add_new_vacation_test(self):
-        try:
-            new_vacation = self.vacations_facade.add_new_vacation(1, "vacationInfo", "startDate YYYY-MM-DD", "endDate YYYY-MM-DD", 100, "photoFileName")
-            print(new_vacation)
-        except ValueError as err:
-            print("Value error:", err)
-        except TypeError as err:
-            print("Type error:", err)
-        except Exception as err:
-            print("General error:", err)
-        finally:
-            self.vacations_facade.close()
+        permission = self.login_user_test()
+        if permission == False:
+            print(f"{"*"*40}\nAccess denied!\nUser is not authorized for this action\n{"*"*40}")
+        elif permission == True:
+            try:
+                args = (1, "vacationInfo", "startDate YYYY-MM-DD", "endDate YYYY-MM-DD",100,  "photoFileName")
+                if len(args) != 6:
+                    raise ValueError("Please provide all required information")
+                new_vacation = self.vacations_facade.add_new_vacation(*args)
+                print(new_vacation)
+            except ValueError as err:
+                print("Value error:", err)
+            except TypeError as err:
+                print("Type error:", err)
+            except Exception as err:
+                print("General error:", err)
+            finally:
+                self.vacations_facade.close()
 
     def update_vacation_test(self):
-        try:
-            vacation = self.vacations_facade.update_exist_vacation(1, "vacationInfo", "startDate YYYY-MM-DD", "endDate YYYY-MM-DD", 100, 2)
-            print(vacation)
-        except ValueError as err:
-            print("Value error:", err)
-        except TypeError as err:
-            print("Type error:", err)
-        except Exception as err:
-            print("General error:", err)
-        finally:
-            self.vacations_facade.close()
+        permission = self.login_user_test()
+        if permission == False:
+            print(f"{"*"*40}\nAccess denied!\nUser is not authorized for this action\n{"*"*40}")
+        elif permission == True:
+            try:
+                args = (1, "vacationInfo", "startDate YYYY-MM-DD", "endDate YYYY-MM-DD", 100, 2)
+                if len(args) != 6:
+                    raise ValueError("Please provide all required information")
+                vacation = self.vacations_facade.update_exist_vacation(*args)
+                print(vacation)
+            except ValueError as err:
+                print("Value error:", err)
+            except TypeError as err:
+                print("Type error:", err)
+            except Exception as err:
+                print("General error:", err)
+            finally:
+                self.vacations_facade.close()
 
     def delete_vacation_test(self):
-        try:
-            delete_vacation = self.vacations_facade.delete_vacation(4)
-            print(delete_vacation)
-        except ValueError as err:
-            print("Value error:", err)
-        except TypeError as err:
-            print("Type error:", err)
-        except Exception as err:
-            print("General error:", err)
-        finally:
-            self.vacations_facade.close()
+        permission = self.login_user_test()
+        if permission == False:
+            print(f"{"*"*40}\nAccess denied!\nUser is not authorized for this action\n{"*"*40}")
+        elif permission == True:
+            try:
+                args = (4,)
+                if len(args) != 1:
+                    raise ValueError("Please provide all required information")
+                delete_vacation = self.vacations_facade.delete_vacation(*args)
+                print(delete_vacation)
+            except ValueError as err:
+                print("Value error:", err)
+            except TypeError as err:
+                print("Type error:", err)
+            except Exception as err:
+                print("General error:", err)
+            finally:
+                self.vacations_facade.close()
 
     def add_like_test(self):
         try:
-            like = self.likes_facade.add_new_like(4, 8)
+            args = (4, 8)
+            if len(args) != 2:
+                raise ValueError("Please provide all required information")
+            like = self.likes_facade.add_new_like(*args)
             print(like)
         except ValueError as err:
             print("Value error:", err)
@@ -105,7 +143,10 @@ class Test:
 
     def unlike_vacation_test(self):
         try:
-            unlike = self.likes_facade.unlike_vacation(4, 8)
+            args = (4, 8)
+            if len(args) != 2:
+                raise ValueError("Please provide all required information")
+            unlike = self.likes_facade.unlike_vacation(*args)
             print(unlike)
         except ValueError as err:
             print("Value error:", err)

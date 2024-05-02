@@ -9,15 +9,21 @@ class VacationsFacade:
     def close(self):
         self.logic.close()
 
-    def get_all_vacations_by_startDate(self):
-        vacations_by_startDate = self.logic.get_all_vacations_ordered("startDate")
+    def all_vacations_ordered(self, order_by):
+        if not all((order_by, )):
+            raise ValueError ("Please provide all required information correctly")
+        if not isinstance(order_by, str):
+            raise TypeError ("Column's type to order by must entered as text letters (string)")
+        allowed_columns_as_parameter = ["vacationId", "countryId", "vacationInfo", "startDate", "endDate", "price", "photoFileName"]
+        if order_by not in allowed_columns_as_parameter:
+            raise ValueError("Invalid column name to order by")
+        vacations_by_startDate = self.logic.get_all_vacations_ordered(order_by)
         vacations = self.logic.display_vacations(vacations_by_startDate)
-        return f"All vacation ordered by start date:\n{vacations}"
+        return vacations
 
-    ### 1. should we add if to check countryId existed, and then we need to write function... ###
     def add_new_vacation(self, countryId, vacationInfo, startDate, endDate, price, photoFileName):
-        if not countryId or not vacationInfo or not startDate or not endDate or not price or not photoFileName:
-            raise ValueError ("Please provide all required information")
+        if not all((countryId, vacationInfo, startDate, endDate, price, photoFileName)):
+            raise ValueError ("Please provide all required information correctly")
         if not isinstance(countryId, int):
             raise TypeError ("Country Id must entered as number (integer)")
         if not isinstance(price, int):
@@ -44,16 +50,14 @@ class VacationsFacade:
         if end < today:
             raise ValueError ("End date must be tomorrow and up (future date only)")
         new_vacation_id = self.logic.insert_new_vacation(countryId, vacationInfo, startDate, endDate, price, photoFileName)
-        if new_vacation_id == True:
+        if new_vacation_id > 0:
             return f"New vacation just added successfully!\nNew vacation ID: {new_vacation_id}"
-        elif new_vacation_id == False:
-            raise ValueError ("Unfortunately something went wrong...Please try again and make sure all provided information is valid")
+        else:
+            raise Exception("Unfortunately something went wrong...Please try again and make sure all provided information is valid (F)")
 
-    ### 1. should we add if vacationId not exist, and then we need to write function... ###
-    ### 2. should we add if countryId not exist, and then we need to write function... ###
     def update_exist_vacation(self, countryId, vacationInfo, startDate, endDate, price, vacationId):
-        if not countryId or not vacationInfo or not startDate or not endDate or not price or not vacationId:
-            raise ValueError ("Please provide all required information")
+        if not all((countryId, vacationInfo, startDate, endDate, price, vacationId)):
+            raise ValueError ("Please provide all required information correctly")
         if not isinstance(countryId, int):
             raise TypeError ("Country Id must entered as number (integer)")
         if not isinstance(vacationId, int):
@@ -75,22 +79,21 @@ class VacationsFacade:
         if end <= start:
             raise ValueError ("End date can't be before start date")
         update_vacation = self.logic.update_vacation(countryId, vacationInfo, startDate, endDate, price, vacationId)
-        if update_vacation == True:
+        if update_vacation > 0:
             return f"Vacation ID {vacationId} updated successfully!"
-        elif update_vacation == False:
-            raise ValueError(f"Unfortunately failed to update vacation ID {vacationId} - ID was not found and/or no changes was made")
+        else:
+            raise Exception(f"Unfortunately failed to update vacation ID {vacationId} - ID was not found and/or no changes was made")
 
-    ### 1. should we add if vacationId not exist, and then we need to write function... ###
     def delete_vacation(self, vacationId):
-        if not vacationId:
-            raise ValueError ("Please provide all required information")
+        if not all(vacationId):
+            raise ValueError ("Please provide all required information correctly")
         if not isinstance(vacationId, int):
             raise TypeError ("Vacation ID must entered as number (integer)")
         delete_vacation = self.logic.delete_vacation(vacationId)
-        if delete_vacation == True:
+        if delete_vacation > 0:
             return f"Vacation ID {vacationId} deleted successfully included all likes!"
-        elif delete_vacation == False:
-            raise ValueError(f"Unfortunately failed to delete vacation ID {vacationId} (and likes) - ID was not found and/or no changes was made")
+        else:
+            raise Exception(f"Unfortunately failed to delete vacation ID {vacationId} (and likes) - ID was not found and/or no changes was made")
         
 
 

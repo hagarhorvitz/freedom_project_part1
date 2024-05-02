@@ -4,8 +4,22 @@ class CountriesModel:
         self.countryName = country_name
 
     def __str__(self):
-        return f"Country Id: {self.countryId} - Country: {self.countryName}"
+        return f"Country Id: {self.__countryId} - Country: {self.__countryName}"
     
+    @property
+    def countryId(self):
+        return self.__countryId
+    @countryId.setter
+    def countryId(self, value):
+        self.__countryId = value
+
+    @property
+    def countryName(self):
+        return self.__countryName
+    @countryName.setter
+    def countryName(self, value):
+        self.__countryName = value
+
     @staticmethod
     def dictionary_to_one_object_country(dictionary):
         countryId = dictionary["countryId"]

@@ -39,13 +39,10 @@ class CountriesLogic:
             country_data_dict_to_obj = CountriesModel.dictionary_to_one_object_country(country_data_dictionary)
             return country_data_dict_to_obj
         
-    def add_new_county(self, countryName):
+    def insert_new_county(self, countryName):
         sql = "INSERT INTO freedom.countries (countryName) VALUES (%s)"
         params = (countryName, )
         new_country_id = self.dal.insert(sql, (params))
-        if new_country_id > 0:
-            return new_country_id
-        else:
-            raise ValueError ("Could'n add new country, ")
+        return new_country_id
 
 

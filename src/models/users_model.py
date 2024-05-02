@@ -8,10 +8,52 @@ class UsersModel:
         self.roleId = role_id
 
     def __str__(self):
-        return f"User Id: {self.userId}\nFull name: {self.firstname} {self.lastname}\nEmail: {self.email}\nPassword: {self.password}\nRole Id: ({self.roleId})"
+        return f"User Id: {self.__userId}\nFull name: {self.__firstname} {self.__lastname}\nEmail: {self.__email}\nPassword: {self.__password}\nRole Id: ({self.__roleId})"
 
     def display(self): # without password and roleId
-        print(f"User Id: {self.userId}\nFull name: {self.firstname} {self.lastname}\nEmail: {self.email}")
+        print(f"User Id: {self.__userId}\nFull name: {self.__firstname} {self.__lastname}\nEmail: {self.__email}")
+
+    @property
+    def userId(self):
+        return self.__userId
+    @userId.setter
+    def userId(self, value):
+        self.__userId = value
+
+    @property
+    def firstname(self):
+        return self.__firstname
+    @firstname.setter
+    def firstname(self, value):
+        self.__firstname = value
+
+    @property
+    def lastname(self):
+        return self.__lastname 
+    @lastname.setter
+    def lastname(self, value):
+        self.__lastname = value
+
+    @property
+    def email(self):
+        return self.__email
+    @email.setter
+    def email(self, value):
+        self.__email = value
+
+    @property
+    def password(self):
+        return self.__password
+    @password.setter
+    def password(self, value):
+        self.__password = value
+
+    @property
+    def roleId(self):
+        return self.__roleId
+    @roleId.setter
+    def roleId(self, value):
+        self.__roleId = value
 
     @staticmethod
     def dictionary_to_one_object_user(dictionary):
@@ -31,6 +73,8 @@ class UsersModel:
             user = UsersModel.dictionary_to_one_object_user(item)
             users.append(user)
         return users
+    
+    
 
     
 

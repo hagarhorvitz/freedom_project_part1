@@ -28,20 +28,30 @@ class LikesLogic:
     def add_like(self, userId, vacationId): 
         sql = "INSERT INTO freedom.likes (userId, vacationId) VALUES (%s,%s)"
         params = (userId, vacationId)
-        new_like = self.dal.insert(sql, (params))
-        if new_like == 0:
-            return True
-        else:
-            return False
-    
+        try:
+            new_like = self.dal.insert(sql, (params))
+            if new_like == 0:
+                return True
+        except Exception as err:
+            if hasattr(err, "errno") and err.errno == 1452:
+                raise Exception("Invalid userId/vacationId or userId/vacationId doesn't exist. Please provide a valid userId/vacationId")
+            else:
+                raise Exception("Unfortunately something went wrong...Please try again and make sure all provided information is valid")   
+
+        
     def delete_like(self, userId, vacationId): 
         sql = "DELETE FROM freedom.likes WHERE userId = %s and vacationId = %s"
         params = (userId, vacationId)
-        delete_like_row = self.dal.delete(sql, (params))
-        if delete_like_row > 0:
-            return True
-        else:
-            return False
+        try:
+            delete_like_row = self.dal.delete(sql, (params))
+            if delete_like_row > 0:
+                return delete_like_row
+        except Exception as err:
+            if hasattr(err, "errno") and err.errno == 1452:
+                raise Exception("Invalid userId/vacationId or userId/vacationId doesn't exist. Please provide a valid userId/vacationId")
+            else:
+                raise Exception("Unfortunately something went wrong...Please try again and make sure all provided information is valid")   
+
     
 
 

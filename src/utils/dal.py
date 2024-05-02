@@ -39,4 +39,4 @@ class DAL:
             self.connection.commit()
             row_count_affected = cursor.rowcount
             return row_count_affected
-        
+

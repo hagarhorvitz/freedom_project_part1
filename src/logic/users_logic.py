@@ -28,12 +28,15 @@ class UsersLogic:
     def insert_new_user(self, firstname, lastname, email, password, roleId): 
         sql = "INSERT INTO freedom.users (firstname, lastname, email, password, roleId) VALUES (%s,%s,%s,%s,%s)"
         params = (firstname, lastname, email, password, roleId)
-        new_user_id = self.dal.insert(sql, (params))
-        if new_user_id > 0:
+        try:
+            new_user_id = self.dal.insert(sql, (params))
             return new_user_id
-        else:
-            return False
-
+        except Exception as err:
+            if hasattr(err, "errno") and err.errno == 1452:
+                raise Exception("Invalid roleId or roleId doesn't exist. Please provide a valid roleId")
+            else:
+                raise Exception("Unfortunately something went wrong...Please try again and make sure all provided information is valid (L)")
+    
     def check_if_email_exists(self, email):
         sql = "select * from freedom.users where email = %s"
         params = (email, )

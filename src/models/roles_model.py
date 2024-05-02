@@ -4,8 +4,22 @@ class RolesModel:
         self.roleName = role_name
 
     def __str__(self):
-        return f"Role info:\nId: {self.roleId} - Name: {self.roleName}"
+        return f"Role info:\nId: {self.__roleId} - Name: {self.__roleName}"
     
+    @property
+    def roleId(self):
+        return self.__roleId
+    @roleId.setter
+    def roleId(self, value):
+        self.__roleId = value
+    
+    @property
+    def roleName(self):
+        return self.__roleName
+    @roleName.setter
+    def roleName(self, value):
+        self.__roleName = value
+
     @staticmethod
     def dictionary_to_one_object_role(dictionary):
         roleId = dictionary["roleId"]
