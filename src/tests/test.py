@@ -4,12 +4,6 @@ from facades.likes_facade import *
 from facades.countries_facade import *
 from facades.roles_facade import *
 
-#################################################
-### do try and except ### ✅
-### change "with" move to the app.py and exit/enter to all here ### ✅
-### enter hard-coded info as "test" (new, update, delete) ###
-#################################################
-
 class Test:
     def __init__(self):
         self.users_facade = UsersFacade()
