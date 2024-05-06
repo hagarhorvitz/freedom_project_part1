@@ -28,11 +28,12 @@ class UsersFacade:
             raise ValueError("New user's role ID can't be 1 = Admin (Admin must entered manually only).\nPlease enter valid role ID")
         if self.logic.check_if_email_exists(email) == True:
             raise ValueError ("Can't register this email address - email is already exists in the system")
-        new_user_id = self.logic.insert_new_user(firstname, lastname, email, password, roleId)
-        if new_user_id > 0:
-            return f"Congratulations! Your registration was successful🥳\nNew user ID: {new_user_id}"
         else:
-            raise Exception("Unfortunately something went wrong...Please try again and make sure all provided information is valid (F)")
+            new_user_id = self.logic.insert_new_user(firstname, lastname, email, password, roleId)
+            if new_user_id > 0:
+                return f"Congratulations! Registration successfully🥳\nNew user ID: {new_user_id}"
+            else:
+                raise Exception("Unfortunately something went wrong...Please try again and make sure all provided information is valid (F)")
 
     def login_exists_user(self, email, password):
         if not all((email, password)):

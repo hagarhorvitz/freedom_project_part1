@@ -45,8 +45,7 @@ class VacationsLogic:
         params = (countryId, vacationInfo, startDate, endDate, price, photoFileName)
         try:
             new_vacation_id = self.dal.insert(sql, (params))
-            if new_vacation_id > 0:
-                return new_vacation_id
+            return new_vacation_id
         except Exception as err:
             if hasattr(err, "errno") and err.errno == 1452:
                 raise Exception("Invalid countryId or countryId doesn't exist. Please provide a valid countryId")
@@ -58,8 +57,7 @@ class VacationsLogic:
         params = (countryId, vacationInfo, startDate, endDate, price, vacationId)
         try:
             update_vacation_row = self.dal.update(sql, (params))
-            if update_vacation_row > 0:
-                return update_vacation_row
+            return update_vacation_row
         except Exception as err:
             if hasattr(err, "errno") and err.errno == 1452:
                 raise Exception("Invalid countryId/vacationId or countryId/vacationId doesn't exist. Please provide a valid countryId/vacationId")
@@ -71,8 +69,7 @@ class VacationsLogic:
         params = (vacationId,)
         try:
             deleted_vacation_row = self.dal.delete(sql, (params))
-            if deleted_vacation_row > 0:
-                return deleted_vacation_row
+            return deleted_vacation_row
         except Exception as err:
             if hasattr(err, "errno") and err.errno == 1452:
                 raise Exception("Invalid vacationId or vacationId doesn't exist. Please provide a valid vacationId")

@@ -14,11 +14,12 @@ class LikesFacade:
             raise ValueError ("User ID must entered as number (integer)")
         if not isinstance(vacationId, int):
             raise ValueError ("Vacation ID must entered as number (integer)")
-        new_like = self.logic.add_like(userId, vacationId)
-        if new_like == True:
-            return f"Thank you for liking the vacation 👍"
         else:
-            raise Exception("We didn't get your like for some reason, please try again.\nMake sure userId and vacationId are correct")
+            new_like = self.logic.add_like(userId, vacationId)
+            if new_like == True:
+                return f"Thank you for liking vacation ({vacationId})👍"
+            else:
+                raise Exception("We didn't get your like for some reason, please try again.\nMake sure userId and vacationId are correct")
 
     def unlike_vacation(self, userId, vacationId):
         if not all((userId, vacationId)):
@@ -27,11 +28,12 @@ class LikesFacade:
             raise ValueError ("User ID must entered as number (integer)")
         if not isinstance(vacationId, int):
             raise ValueError ("Vacation ID must entered as number (integer)")
-        unlike = self.logic.delete_like(userId, vacationId)
-        if unlike > 0:
-            return f"Unlike successfully from user ID {userId} for vacation ID {vacationId}"
         else:
-            raise Exception("Sorry, something is wrong...couldn't unlike for some reason, please try again.\nMake sure userId and vacationId are correct")
+            unlike = self.logic.delete_like(userId, vacationId)
+            if unlike > 0:
+                return f"Unlike vacation ID {vacationId} by user ID {userId}"
+            else:
+                raise Exception("Sorry, something is wrong...couldn't unlike for some reason, please try again.\nMake sure userId and vacationId are correct")
 
 
 

@@ -1,7 +1,10 @@
 from tests.test import *
 
-with Test() as test:
-    test.test_all()
-    pass # not done yet
+try:
+    with Test() as test:
+        test.test_all()
+except Exception as err:
+    print("General error:", err)
+
 
 
