@@ -1,9 +1,15 @@
 import mysql.connector
+from app_config import AppConfig
 
 class DAL:
     def __init__(self):
-        self.connection = mysql.connector.connect(host = "localhost", user = "root", password = "SHraga59884x4!", database = "freedom")
-    
+        self.connection = mysql.connector.connect(
+            host = AppConfig.mysql_host, 
+            user = AppConfig.mysql_user, 
+            password = AppConfig.mysql_password, 
+            database = AppConfig.mysql_database
+            )
+
     def close(self):
         self.connection.close()
 
